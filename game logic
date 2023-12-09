@@ -1,0 +1,489 @@
+package GameLogicPackage;
+import java.util.Scanner;
+
+public class GameLogic {
+        //scanner object, takes console output as parameter
+    static Scanner scanner = new Scanner(System.in);
+    
+    static Player player;
+
+    public static boolean isRuning;
+
+    //random encounter
+    public static String[] encounters = {"Battle", "Rest","Battle", "Rest","Battle", "Rest", };
+
+    //enemy names
+    public static String[] enemy = {"enemy 1","enemy 2", "enemy 3", "enemy 4", "enemy 5" };
+
+    //story elements
+    public static int place = 0, act = 1;
+    public static String[] places = {"Miejsce 1", "miejsce 2", "miejsce 3", "miejsce 4 boss"};
+
+    //user input
+    public static int read(String hintForUser, int userPick) {
+        int input;
+        //loop
+        do {
+            System.out.println(hintForUser);
+
+            //there may be some error if user input
+            // something else than number
+
+            try{
+                input = Integer.parseInt(scanner.next());
+            }catch(Exception e){
+                input = -1;
+                System.out.println("Please enter an Integer.");
+            }
+
+        } while (input < 1 || input > userPick);
+
+            return input;
+    }
+
+    //clearing out console (print 100 empty lines)
+    public static void consoleClear(){
+        for(int i = 0; i<100; i++){
+            System.out.println();
+        }
+    }
+    // print a separtator with lenght n - structure information
+    public static void printSeparator(int n){
+        for(int i=0; i<n;i++){
+            System.out.println(" ");
+            System.out.println();
+        }
+    }
+    //heading print
+    public static void printHeading(String title){
+        printSeparator(5);
+        System.out.println(title);
+        printSeparator(1);
+    }
+    //stop game until get user input
+    public static void writeSomethingToContinue(){
+        System.out.println("Enter anything to continue: ");
+        scanner.next();
+    }
+
+    //start game
+    public static void startGame(){
+        boolean nameSet = false;
+        String name;
+        // print title screen
+        printSeparator(1);
+        System.out.println("TO JEST MOJA GRA RPG A W TYM MIEJSCU BEDZIE SUPER TYTUL");
+        System.out.println("Text based RPG game");
+        printSeparator(3);
+        writeSomethingToContinue();
+
+        //getting player name
+        do{
+            consoleClear();
+            printHeading("What is your name, adventurer?");
+            name = scanner.next();
+
+            //ask player if name is correct
+            printHeading("Your name is " + name +".\nIs that correct?");
+            System.out.println("1) Yes!");
+            System.out.println("2) No! I made a mistake, let me chose again.");
+
+
+
+            // if player typ name right
+            int input = read("-> ", 2);
+
+
+            //if player need change
+            if(input == 1){
+                nameSet=true;
+            }
+
+        } while(!nameSet);
+        //if someone pic something other than 1 or 2 (neeeded logic)
+
+
+        //story intro
+        Story.printIntro();
+
+        //create new player object with the name
+        player = new Player(name);
+
+        //first story act
+
+        Story.actOneIntro();
+
+        //setting isRunning to true, for game loop continue
+        isRuning = true;
+        //start game loop
+        gameLoop();
+
+    }
+    //to check witch act player is
+    public static void checkAct(){
+        //change act based on gained xp
+        if(player.xp >= 10&& act == 1){
+            //increment act and place
+            act = 2;
+            place = 1;
+
+            //story
+            Story.actOneIntro();
+            player.choseTrait();
+            Story.actOneMidStory();
+            //enemy
+            enemy[0] = "Evil mosquito";
+            enemy[1] = "Rat";
+            enemy[2] = "Rock";
+            enemy[3] = "Worm";
+            enemy[4] = "Fly";
+
+            encounters[0] = "Battle";
+            encounters[1] = "Battle";
+            encounters[2] = "Rest";
+            encounters[3] = "Battle";
+            encounters[4] = "Shop";
+
+            player.hp = player.maxHp;
+        }else if(player.xp >= 50 && act == 2){
+            act = 3;
+            place = 2;
+            Story.actOneOutro();
+            player.choseTrait();
+            Story.actSecondIntro();
+            player.choseTrait();
+            Story.actSecondMidStory();
+
+            enemy[0] = "Wolf";
+            enemy[1] = "Snake";
+            enemy[2] = "Zebra";
+            enemy[3] = "Bug swarm";
+            enemy[4] = "Racoon";
+
+            encounters[0] = "Battle";
+            encounters[1] = "Rest";
+            encounters[2] = "Rest";
+            encounters[3] = "Battle";
+            encounters[4] = "Shop";
+            player.hp = player.maxHp;
+        } else if (player.xp >= 100 && act==3) {
+            act = 3;
+            place = 3;
+            Story.actSecondOutro();
+            player.choseTrait();
+            Story.actThirdIntro();
+            player.choseTrait();
+            Story.actThirdMidStory();
+
+            enemy[0] = "Swamp Monster";
+            enemy[1] = "Swan";
+            enemy[2] = "Zsombie";
+            enemy[3] = "Skeletdfn";
+            enemy[4] = "Buba";
+
+            encounters[0] = "Battle";
+            encounters[1] = "Shop";
+            encounters[2] = "Rest";
+            encounters[3] = "Battle";
+            encounters[4] = "Battle";
+            player.hp = player.maxHp;
+        }else if (player.xp >= 150 && act == 4){
+            act =4;
+            place =3;
+            Story.actThirdOutro();
+            player.choseTrait();
+
+
+            enemy[4] = "Agata";
+            encounters[0] = "Battle";
+            player.hp = player.maxHp;
+            //final battle();
+
+        }
+    }
+
+    //calculate randdm encounter
+    public static void randomEncounter(){
+        //random number of encounter between 0 and lenght of encounteres array
+        int encounter = (int) (Math.random()* encounters.length);
+        //calling the methods
+        if(encounters[encounter].equals("Battle")){
+            randomBattle();
+        } else if (encounters[encounter].equals("Rest")) {
+            takeRest();
+        } else if(encounters[encounter].equals("Shop")){
+            shop();
+        }
+
+    }
+
+  // method to continue game
+    public static void continueJourney(){
+    //incised Act
+        checkAct();
+
+        //if not in final act
+        if(act!=4){
+            randomEncounter();
+        }
+
+    }
+  //print most important information (character)
+    public static void characterInfo(){
+        consoleClear();
+        printHeading("Information about: " + player.name);
+        System.out.println("Your character name is: "+ player.name + ". Your max hp is: "+
+                player.maxHp +". Currently yau have: "+ player.hp +" Hp point's.");
+        printSeparator(1);
+        //player xp and gold
+        System.out.println("Currently you have "+ player.xp+ " point of experience."+ "\nYou currently have "+ player.gold + "gold coins in your pocket!");
+        printSeparator(1);
+        // number of pots
+        System.out.println("Currently you have " + player.pots);
+        printSeparator(1);
+
+
+        //print traits
+        if(player.numAtakUpgrades >0){
+            System.out.println("Attack trait: " + player.attackSkill[player.numAtakUpgrades]);
+            printSeparator(1);
+
+        } if(player.numDefenseUpgdades>0){
+            System.out.println("Deffense trait: " + player.defenseSkill[player.numDefenseUpgdades]);
+            printSeparator(1);
+        }
+        writeSomethingToContinue();
+    }
+    // shopping - traveling trader
+    public static void shop() {
+        consoleClear();
+        printHeading(player.name + " meet a stranger merchant. \nHe bows deep to "
+                + player.name + " and ask kindly: \n Is there anything you would like to buy?");
+        int price = (int) (Math.random() * (10 + player.pots * 3) + 10 + player.pots);
+        System.out.println("- Magic potion: " + price + " gold coins.");
+        printSeparator(1);
+        //ask the player to buy one
+        System.out.println("Do you with to buy one? \n1) Yes, please! \n2) Hell no! That's suspisios!");
+        int input = read("->", 2);
+        //if player wants buy
+        if (input == 1) {
+            consoleClear();
+            //chceck if player have enough gold
+            if (player.gold >= price) {
+                printHeading(player.name + "bought a magical potion!");
+                player.pots++;
+                player.gold -= price;
+            } else {
+                printHeading(player.name + " don't have enough gold!");
+                writeSomethingToContinue();
+            }
+        }
+    }
+
+    //taking a rest
+     public static void takeRest(){
+            consoleClear();
+            if(player.restsLeft>1){
+                printHeading("Do you want to take a rest? (" + player.restsLeft+ "rest's left." );
+                System.out.println("1) Yes\n2) No");
+                int input = read("->", 2);
+                if(input==1){
+                    //player want's to rest
+                    consoleClear();
+                    if(player.hp < player.maxHp){
+                        int hpRestored = (int) (Math.random()* (player.hp/4+1)+9);
+                        player.hp += hpRestored;
+                        System.out.println(player.name + " took a good rest. Manage to restore "
+                                + hpRestored + "HP point's!");
+                    }
+                    if(player.hp > player.maxHp){
+                        player.hp = player.maxHp;
+                    }
+                System.out.println(player.name + " have currently " + player.hp + "points.");
+                    player.restsLeft--;
+
+                }else{
+                    System.out.println(player.name + " have full health! No need to use rest for now.");
+                    writeSomethingToContinue();
+                }
+            }
+        }
+
+   // random battle
+    public static void randomBattle(){
+        consoleClear();
+        printHeading(" You encountered an wild creature! Fight it! ");
+        writeSomethingToContinue();
+
+        // create new enemy with random name
+        battle(new Enemy(enemy[(int) (Math.random()* enemy.length)], player.xp));
+    }
+// the main battle method
+    public static void battle(Enemy enemy) {
+        while (true) {
+            consoleClear();
+            printHeading(enemy.name + "\nHP: " + enemy.hp + "/" + enemy.maxHp);
+            printHeading(player.name + "\nHP: " + player.hp + "/" + player.maxHp);
+            System.out.println("Chose an action: ");
+            printSeparator(5);
+            System.out.println("1) Fight! \n2) Use Potion \n3) Run away!");
+            int input = read("->", 3);
+            //react to player input
+            if (input == 1) {
+                //fight, calculate dmg & dmg took - how many dmg enemy deals to player
+                int dmg = player.attac() - enemy.deffend();
+                int dmgTook = enemy.attac() - player.deffend();
+                //check that dmg is negative
+                if (dmgTook < 0) {
+                    //add some dmg if player defends well
+                    dmg -= dmgTook / 2;
+                    dmgTook = 0;
+                }
+                if (dmg < 0) {
+                    dmg = 0;
+                }
+                // deal dmg to both parties
+                player.hp -= dmgTook;
+                enemy.xp -= dmg;
+                //print info about this battle round
+                consoleClear();
+                printHeading("BATTLE!");
+                System.out.println("You dealt: " + dmg + " damage to the " + enemy.name + "!");
+                printSeparator(3);
+                System.out.println("The " + enemy.name + " dealt " + dmgTook + " damage to " + player.name + "!");
+                writeSomethingToContinue();
+                //check if player is still alive
+                if (player.xp <= 0) {
+                    playerDied();
+                    break;
+                } else if (enemy.xp <= 0) {
+                    //tell player he won
+                    consoleClear();
+                    printHeading(player.name + "defeated the " + enemy.name + "!");
+                    //increase player xp
+                    player.xp += enemy.xp;
+                    System.out.println(player.name + " earned " + enemy.xp + " expirience point!");
+                    //random drops
+                    boolean addRest = (Math.random() * 5 + 1 <= 2.25);
+                    int goldEarned = (int) (Math.random() * enemy.xp);
+                    if (addRest) {
+                        player.restsLeft++;
+                        System.out.println(player.name + " earned a chance to get another rest!");
+                    }
+
+                    if (goldEarned > 0) {
+                        player.gold += goldEarned;
+                        System.out.println(player.name + "earned " + goldEarned + " gold coins!");
+                    }
+                    writeSomethingToContinue();
+                    break;
+                }
+            } else if (input == 2) {
+                //use a potion
+                consoleClear();
+                if (player.pots > 0 && player.hp < player.maxHp) {
+                    //player can take a potion
+                    //make sure that's what player want
+                    System.out.println("Do you ant to dring a potion?" + player.pots + " potion's left.");
+                    System.out.println("1) Yes! \n2) No, thank you.");
+                    input = read("->", 2);
+
+                    if (input == 1) {
+                        //if player took it
+                        player.hp = player.maxHp;
+                        consoleClear();
+                        printHeading(player.name + "drink a potion!" + player.name + "feel's sooo muuch bettter now!" + player.name + " have now " + player.hp);
+
+                    }
+                } else {
+                    //player cannot take a potion
+                    printHeading(player.name + "have full hp! " + player.name + "cant use a potion! ");
+                    writeSomethingToContinue();
+                }
+
+
+            } else {
+                //Run!
+                consoleClear();
+                //chance escape 25%
+                if (act != 4) {
+
+                    if (Math.random() * 10 + 1 <= 2.5) {
+                        printHeading(player.name + " succesfuly escaped from the " + enemy.name + "!");
+                        writeSomethingToContinue();
+                        break;
+
+                    } else {
+                        printHeading(player.name + "didn't manage to escape from" + enemy.name);
+                        //calculate dmg player takes
+                        int dmgTook = enemy.attac();
+                        System.out.println(player.name + " took " + dmgTook + " point's of dmg!");
+                        writeSomethingToContinue();
+                        //if player died
+                        if (player.hp <= 0) {
+                            playerDied();
+                            break;
+                        }
+
+                    }
+                } else {
+                    printHeading(player.name + "cannot escape from the final battle!");
+                    writeSomethingToContinue();
+
+                }
+
+            }
+        }
+    }
+
+
+
+  //print menu
+    public static void printMenu(){
+        consoleClear();
+        printHeading(places[place]);
+        System.out.println("Chose one of action: ");
+        printSeparator(1);
+        System.out.println("1) Continue on your adventure.");
+        System.out.println("2) Character information.");
+        System.out.println("3) Exit Game.");
+    }
+    //final battle
+
+    public static void finalBattle(){
+        battle(new Enemy("LAST BOSS", 300));
+        //printing ending
+        Story.EndGame();
+        isRuning = false;
+    }
+
+    // method that gets called when player is dead
+    public static void playerDied(){
+        consoleClear();
+        printHeading(player.name + " life ends here...");
+        printHeading(player.name + " earned " + player.xp + "XP on your journey. ");
+        isRuning = false;
+    }
+
+
+    //main game loop
+    public static void gameLoop(){
+
+        while(isRuning){
+            printMenu();
+            int input = read("-> ", 3);
+
+            if(input == 1){
+                //if player pick 1, continue game
+                continueJourney();
+            } else if (input == 2) {
+                //if player pic 2, show character information
+                characterInfo();
+            } else {
+            isRuning = false;
+            }
+        }
+    }
+
+
+}
