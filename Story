@@ -1,8 +1,8 @@
 package GameLogicPackage;
 
 
-// here i only store part of story.
-//Copy first method and full fill with text.
+// here i only store part of story..
+//I mean, that's here is no story for now. But will be. Ewentualy. 
 public class Story {
 
     public static void printIntro(){
@@ -12,7 +12,7 @@ public class Story {
         System.out.println("So, listen to my story, becouse, this is how this all started..." );
         GameLogic.printSeparator(1);
 
-        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("Wszystko zaczęło się dawno, dawno temu. ");
         System.out.println("tutaj tekst wprowadzający do historii");
         System.out.println("So now, you should pick what is your best side. Is this strength, or defense?");
         GameLogic.writeSomethingToContinue();
