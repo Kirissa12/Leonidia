@@ -1,0 +1,65 @@
+package GameLogicPackage;
+
+public class Player extends Character {
+
+    // store number of upgrades in each patch
+    public int numAtakUpgrades, numDefenseUpgdades;
+
+    //additional player stat
+    int gold, restsLeft, pots;
+
+
+    //array to store skills
+    public String[] attackSkill = {"Strength", "Might", "Power up", "Bulk up"};
+    public String[] defenseSkill = {"Hard skin", "Shield Up", "Dragon Scales", "Power of friendship"};
+
+    //specific constructor
+    public Player(String name) {
+        super(name, 100, 0);
+       //seting upgrades to 0
+        this.numAtakUpgrades = 0;
+        this.numDefenseUpgdades = 0;
+        //set additional stats
+        this.gold = 5;
+        this.restsLeft = 1;
+        this.pots = 0;
+        //let player chose a trait when create a character
+        choseTrait();
+
+    }
+
+    //methods from parent class
+    @Override
+    public int attac() {
+        return (int) (Math.random()* (xp/4 + numAtakUpgrades*3 +3) + xp/10 + numAtakUpgrades*2 + numDefenseUpgdades +1);
+    }
+
+    @Override
+    public int deffend() {
+        return (int) (Math.random()* (xp/4 + numDefenseUpgdades*3 +3) + xp/10 +numDefenseUpgdades*2 + numAtakUpgrades +1);
+    }
+
+    //chose of trait for skill path
+    public void choseTrait(){
+        GameLogic.consoleClear();
+        GameLogic.printHeading("Please, chose one of trait: ");
+        System.out.println("1) "+ attackSkill[numAtakUpgrades]);
+        System.out.println("2) "+ defenseSkill[numDefenseUpgdades]);
+
+        // get player choice:
+        int input = GameLogic.read("-> ", 2);
+        GameLogic.consoleClear();
+
+        //deal with both choice:
+        if(input == 1){
+            GameLogic.printHeading("You chose "+ attackSkill[numAtakUpgrades] + "!");
+            numAtakUpgrades++;
+        } else {
+            GameLogic.printHeading("You chose " + defenseSkill[numDefenseUpgdades] + "!");
+            numDefenseUpgdades++;
+        }
+            GameLogic.writeSomethingToContinue();
+
+        }
+    }
+
