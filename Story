@@ -1,0 +1,142 @@
+package GameLogicPackage;
+
+
+// here i only store part of story.
+//Copy first method and full fill with text.
+public class Story {
+
+    public static void printIntro(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("So, listen to my story, becouse, this is how this all started..." );
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("So now, you should pick what is your best side. Is this strength, or defense?");
+        GameLogic.writeSomethingToContinue();
+    }
+
+    public static void actOneIntro(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+    public static void actOneMidStory(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+    public static void actOneOutro(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+    public static void actSecondIntro(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+    public static void actSecondMidStory(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+    public static void actSecondOutro(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+    public static void actThirdIntro(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+    public static void actThirdMidStory(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+    public static void actThirdOutro(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+
+    public static void EndGame(){
+        GameLogic.consoleClear();
+        GameLogic.printSeparator(1);
+
+        System.out.println("WPROWADZENIE DO AKTU PIERWSZEGO");
+        GameLogic.printSeparator(1);
+
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        System.out.println("tutaj tekst wprowadzający do historii");
+        GameLogic.writeSomethingToContinue();
+    }
+}
