@@ -34,13 +34,7 @@ public class GameLogic {
             }catch(Exception e){
                 input = -1;
                 System.out.println("Please enter an Integer.");
-            }
-            try{
-                input = stringScanner.next();
-            }cath(Exception e){
-                text String;
-                input = text;
-                System.ou.println("Please enter an Integer");
+        
             }
 
         } while (input < 1 || input > userPick);
