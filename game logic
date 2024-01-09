@@ -10,10 +10,10 @@ public class GameLogic {
     public static boolean isRuning;
 
     //random encounter
-    public static String[] encounters = {"Battle", "Rest","Battle", "Rest","Battle", "Rest", };
+    public static String[] encounters = {"Ambush!", "Rest","Unexpected encounter", "A small meadow where you can relax","Battle", "Cozy cabin in the woods", };
 
     //enemy names
-    public static String[] enemy = {"enemy 1","enemy 2", "enemy 3", "enemy 4", "enemy 5" };
+    public static String[] enemy = {"Orc","Rat", "Group of wild faeries", "Boblin the Goblin", "Cute and dangerous Puppy" };
 
     //story elements
     public static int place = 0, act = 1;
@@ -23,21 +23,22 @@ public class GameLogic {
     public static int read(String hintForUser, int userPick) {
         int input;
         //loop
-        do {
-            System.out.println(hintForUser);
+       do {
+    System.out.println(hintForUser);
 
-            //there may be some error if user input
-            // something else than number
-
-            try{
-                input = Integer.parseInt(scanner.next());
-            }catch(Exception e){
-                input = -1;
-                System.out.println("Please enter an Integer.");
+    try {
+        input = Integer.parseInt(scanner.next());
         
-            }
+        if (input < 1 || input > userPick) {
+            System.out.println("Please enter a valid integer within the specified range.");
+        }
 
-        } while (input < 1 || input > userPick);
+    } catch (NumberFormatException e) {
+        input = -1;
+        System.out.println("Please enter an integer.");
+    }
+
+} while (input < 1 || input > userPick);
 
             return input;
     }
